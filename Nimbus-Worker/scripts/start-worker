@@ -1,0 +1,240 @@
+# Author:       Paul Doyle
+# Date:         Septemebr 2013
+#
+# NAME
+#       startworker
+#
+#
+# SYNOPSIS
+#      startworker runs the primary pyton command to start cleaning images
+#
+# DESCRIPTION:  
+# 
+#
+#chmod 755 downloadtest.sh
+#/home/ubuntu/nimbus-worker/downloadtest.sh
+#
+#
+# The init script will have already installed a single worker in ubuntu. 
+# This is cloning the system up beyond the single instance
+#
+NUMWORKERS=20
+i=2
+#cd /home/ubuntu/nimbus-worker/
+#python /home/ubuntu/nimbus-worker/sqs-reader.py workerq cmdq 10 &
+
+while [ $i -le $NUMWORKERS ] 
+do
+	mkdir -p /home/ubuntu$i
+	rm -rf /home/ubuntu$i/*
+	cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu$i
+
+	cd /home/ubuntu$i
+	tar -xvf nimbusworker.pkg.tar.z
+	cp /home/ubuntu/nimbus-worker/version* /home/ubuntu$i/
+
+#	cd /home/ubuntu$i/nimbus-worker/
+#	python /home/ubuntu$i/nimbus-worker/sqs-reader.py workerq cmdq 10 &
+	i=$(($i+1))
+done
+i=2
+cd /home/ubuntu/nimbus-worker/
+python /home/ubuntu/nimbus-worker/sqs-reader.py workerq cmdq 10 &
+while [ $i -le $NUMWORKERS ] 
+do
+	cd /home/ubuntu$i/nimbus-worker/
+	python /home/ubuntu$i/nimbus-worker/sqs-reader.py workerq cmdq 10 &
+	i=$(($i+1))
+
+done
+
+exit
+
+#mkdir /home/ubuntu2
+#mkdir /home/ubuntu3
+#mkdir /home/ubuntu4
+#mkdir /home/ubuntu5
+#mkdir /home/ubuntu6
+#mkdir /home/ubuntu7
+#mkdir /home/ubuntu8
+#mkdir /home/ubuntu9
+#mkdir /home/ubuntu10
+
+#rm -rf /home/ubuntu2/*
+#rm -rf /home/ubuntu3/*
+#rm -rf /home/ubuntu4/*
+#rm -rf /home/ubuntu5/*
+#rm -rf /home/ubuntu6/*
+#rm -rf /home/ubuntu7/*
+#rm -rf /home/ubuntu8/*
+#rm -rf /home/ubuntu9/*
+#rm -rf /home/ubuntu10/*
+#
+# Cleanup the older version
+#
+# Download the newer version
+#
+#cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu2
+#cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu3
+#cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu4
+#cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu5
+#cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu6
+#cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu7
+#cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu8
+#cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu9
+#cp /home/ubuntu/nimbusworker.pkg.tar.z /home/ubuntu10
+
+cd /home/ubuntu2
+tar -xvf nimbusworker.pkg.tar.z
+cp /home/ubuntu/nimbus-worker/version* /home/ubuntu2/
+chmod 755 /home/ubuntu2/nimbus-worker/scripts/start-worker2
+
+cd /home/ubuntu3
+tar -xvf nimbusworker.pkg.tar.z
+cp /home/ubuntu/nimbus-worker/version* /home/ubuntu3/
+chmod 755 /home/ubuntu3/nimbus-worker/scripts/start-worker3
+
+cd /home/ubuntu4
+tar -xvf nimbusworker.pkg.tar.z
+cp /home/ubuntu/nimbus-worker/version* /home/ubuntu4/
+chmod 755 /home/ubuntu4/nimbus-worker/scripts/start-worker4
+
+cd /home/ubuntu5
+tar -xvf nimbusworker.pkg.tar.z
+cp /home/ubuntu/nimbus-worker/version* /home/ubuntu5/
+chmod 755 /home/ubuntu5/nimbus-worker/scripts/start-worker5
+
+cd /home/ubuntu6
+tar -xvf nimbusworker.pkg.tar.z
+cp /home/ubuntu/nimbus-worker/version* /home/ubuntu6/
+chmod 755 /home/ubuntu6/nimbus-worker/scripts/start-worker6
+
+cd /home/ubuntu7
+tar -xvf nimbusworker.pkg.tar.z
+cp /home/ubuntu/nimbus-worker/version* /home/ubuntu7/
+chmod 755 /home/ubuntu7/nimbus-worker/scripts/start-worker7
+
+cd /home/ubuntu8
+tar -xvf nimbusworker.pkg.tar.z
+cp /home/ubuntu/nimbus-worker/version* /home/ubuntu8/
+chmod 755 /home/ubuntu8/nimbus-worker/scripts/start-worker8
+
+cd /home/ubuntu9
+tar -xvf nimbusworker.pkg.tar.z
+cp /home/ubuntu/nimbus-worker/version* /home/ubuntu9/
+chmod 755 /home/ubuntu9/nimbus-worker/scripts/start-worker9
+
+cd /home/ubuntu10
+tar -xvf nimbusworker.pkg.tar.z
+cp /home/ubuntu/nimbus-worker/version* /home/ubuntu10/
+chmod 755 /home/ubuntu10/nimbus-worker/scripts/start-worker10
+
+
+if [ $NUMWORKERS -eq 2 ]; then
+	cd /home/ubuntu2
+	/home/ubuntu2/nimbus-worker/scripts/start-worker2  &
+fi
+if [ $NUMWORKERS -eq 3 ]; then
+	cd /home/ubuntu2
+	/home/ubuntu2/nimbus-worker/scripts/start-worker2  &
+	cd /home/ubuntu3
+	/home/ubuntu3/nimbus-worker/scripts/start-worker3  &
+fi
+if [ $NUMWORKERS -eq 4 ]; then
+	cd /home/ubuntu2
+	/home/ubuntu2/nimbus-worker/scripts/start-worker2  &
+	cd /home/ubuntu3
+	/home/ubuntu3/nimbus-worker/scripts/start-worker3  &
+	cd /home/ubuntu4
+	/home/ubuntu4/nimbus-worker/scripts/start-worker4  &
+fi
+if [ $NUMWORKERS -eq 5 ]; then
+	cd /home/ubuntu2
+	/home/ubuntu2/nimbus-worker/scripts/start-worker2  &
+	cd /home/ubuntu3
+	/home/ubuntu3/nimbus-worker/scripts/start-worker3  &
+	cd /home/ubuntu4
+	/home/ubuntu4/nimbus-worker/scripts/start-worker4  &
+	cd /home/ubuntu5
+	/home/ubuntu5/nimbus-worker/scripts/start-worker5  &
+fi
+if [ $NUMWORKERS -eq 6 ]; then
+	cd /home/ubuntu2
+	/home/ubuntu2/nimbus-worker/scripts/start-worker2  &
+	cd /home/ubuntu3
+	/home/ubuntu3/nimbus-worker/scripts/start-worker3  &
+	cd /home/ubuntu4
+	/home/ubuntu4/nimbus-worker/scripts/start-worker4  &
+	cd /home/ubuntu5
+	/home/ubuntu5/nimbus-worker/scripts/start-worker5  &
+	cd /home/ubuntu6
+	/home/ubuntu6/nimbus-worker/scripts/start-worker6  &
+fi
+if [ $NUMWORKERS -eq 7 ]; then
+	cd /home/ubuntu2
+	/home/ubuntu2/nimbus-worker/scripts/start-worker2  &
+	cd /home/ubuntu3
+	/home/ubuntu3/nimbus-worker/scripts/start-worker3  &
+	cd /home/ubuntu4
+	/home/ubuntu4/nimbus-worker/scripts/start-worker4  &
+	cd /home/ubuntu5
+	/home/ubuntu5/nimbus-worker/scripts/start-worker5  &
+	cd /home/ubuntu6
+	/home/ubuntu6/nimbus-worker/scripts/start-worker6  &
+	cd /home/ubuntu7
+	/home/ubuntu7/nimbus-worker/scripts/start-worker7  &
+fi
+if [ $NUMWORKERS -eq 8 ]; then
+	cd /home/ubuntu2
+	/home/ubuntu2/nimbus-worker/scripts/start-worker2  &
+	cd /home/ubuntu3
+	/home/ubuntu3/nimbus-worker/scripts/start-worker3  &
+	cd /home/ubuntu4
+	/home/ubuntu4/nimbus-worker/scripts/start-worker4  &
+	cd /home/ubuntu5
+	/home/ubuntu5/nimbus-worker/scripts/start-worker5  &
+	cd /home/ubuntu6
+	/home/ubuntu6/nimbus-worker/scripts/start-worker6  &
+	cd /home/ubuntu7
+	/home/ubuntu7/nimbus-worker/scripts/start-worker7  &
+	cd /home/ubuntu8
+	/home/ubuntu8/nimbus-worker/scripts/start-worker8  &
+fi
+if [ $NUMWORKERS -eq 9 ]; then
+	cd /home/ubuntu2
+	/home/ubuntu2/nimbus-worker/scripts/start-worker2  &
+	cd /home/ubuntu3
+	/home/ubuntu3/nimbus-worker/scripts/start-worker3  &
+	cd /home/ubuntu4
+	/home/ubuntu4/nimbus-worker/scripts/start-worker4  &
+	cd /home/ubuntu5
+	/home/ubuntu5/nimbus-worker/scripts/start-worker5  &
+	cd /home/ubuntu6
+	/home/ubuntu6/nimbus-worker/scripts/start-worker6  &
+	cd /home/ubuntu7
+	/home/ubuntu7/nimbus-worker/scripts/start-worker7  &
+	cd /home/ubuntu8
+	/home/ubuntu8/nimbus-worker/scripts/start-worker8  &
+	cd /home/ubuntu9
+	/home/ubuntu9/nimbus-worker/scripts/start-worker9  &
+fi
+if [ $NUMWORKERS -eq 10 ]; then
+	cd /home/ubuntu2
+	/home/ubuntu2/nimbus-worker/scripts/start-worker2  &
+	cd /home/ubuntu3
+	/home/ubuntu3/nimbus-worker/scripts/start-worker3  &
+	cd /home/ubuntu4
+	/home/ubuntu4/nimbus-worker/scripts/start-worker4  &
+	cd /home/ubuntu5
+	/home/ubuntu5/nimbus-worker/scripts/start-worker5  &
+	cd /home/ubuntu6
+	/home/ubuntu6/nimbus-worker/scripts/start-worker6  &
+	cd /home/ubuntu7
+	/home/ubuntu7/nimbus-worker/scripts/start-worker7  &
+	cd /home/ubuntu8
+	/home/ubuntu8/nimbus-worker/scripts/start-worker8  &
+	cd /home/ubuntu9
+	/home/ubuntu9/nimbus-worker/scripts/start-worker9  &
+	cd /home/ubuntu10
+	/home/ubuntu10/nimbus-worker/scripts/start-worker10  &
+fi

@@ -1,0 +1,60 @@
+#!/bin/bash
+
+#
+#  Configuration options for running experiments
+#
+#
+#
+#  -a   Use Amazon Web servers
+#  -d   Use DIT Web servers
+#  -n	Use HEANT Web servers 
+#  -x	Use ALL Web servers
+#
+#
+#   Num Instances to Run
+#
+#   Time in Seconds to run the experiment
+#
+#   Name of the Experiment
+#
+#   Number of Web Servers to run (1 or 2)
+#
+#   Size of the instances to use in the experiment 
+#
+#   All experiments are formally names to correspond to a specific configuration
+#
+# Format of the run command below is as follows. 
+#
+#  webservertype  instancenum seconds expname webservernum  instancetype
+#
+
+#######################
+#
+#AWS Experiments group 1, Workers= 1 per instance, BatchSize = 10
+#
+#######################
+#
+#
+# The following parameters must be set in the Worker Package
+# 	Workers per instance in this case is 1
+# 	Batch Size per worker is set to 10
+#
+# 	The canary1.nightsky.ie should also be running rounding up the 
+#	number of instances by 1 in all cases
+#
+#./run-experiment.sh -x  99   1200 SetMASSIVE 4 m3.2xlarge
+
+echo " Ensure that the batchsize per worker is set to 10"
+
+echo " Ensure that the workers per instances is set to 1"
+read -p " Ensure that the workers per instances is set to 1"
+
+#./run-experiment.sh -f  0 1200 FTPCAL-ibm326.1 1 ibm326   
+
+read -p " Ensure that the workers per instances is set to 5"
+
+./run-experiment.sh -f  0 1200 FTPCAL-ibm326.5 1 ibm326
+
+read -p " Ensure that the workers per instances is set to 10"
+./run-experiment.sh -f  0 1200 FTPCAL-ibm326.10 1 ibm326
+

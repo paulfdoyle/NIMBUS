@@ -1,0 +1,140 @@
+#!/bin/bash
+#
+# Author: 	Paul Doyle
+# Date:		Aug 2013
+#
+# NAME
+#	sqs-qm populate sqs queues
+#
+#
+# SYNOPSIS
+#	sqs-qm [OPTION] sqs-name [SOURCEDIR] [IP Address]
+#
+# DESCRIPTION:	
+#
+# OPTIONS
+# 
+#	h - provides help messages
+#	v - script version
+#	d - delete the queue
+#	x - dump the contents of thr queue
+#	w - write to the queue 
+#	c - create the queue 
+#	n - show number of elements in the queue
+#	l - list available queues
+#	
+
+COMMAND=0
+usage(){
+	echo ""
+	echo "sqs-mgt - control the sqs queues"
+	echo ""
+	echo "Usage: `basename $0` [-hvdxwcnl] [SQS-QUEUE-NAME] [sourcedir] [IP Address] "
+	echo ""
+	echo " OPTIONS"
+	echo "        h - provides help messages"
+	echo "        v - script version"
+	echo "        d - delete the queue"
+	echo "        x - dump the contents of the queue to a text file"
+	echo "        w - write messages to the queue using files in sourcedir"
+	echo "        c - create a queue using SQS-QUEUE-NAME"
+	echo "        n - show the number of elements in a queue"
+	echo "        l - list avaialble queues"
+	echo "SQS-QUEUE-NAME"
+	echo "        the name of the sqs queue to operate on (not use with -l option)."
+	echo ""
+	echo "sourcedir"
+	echo "        default source directories can be over overridden for option '-w'"
+	echo ""
+	echo "IP Address"
+	echo "        IP Address can be over overridden for option '-w' but include a sourcedir"
+	echo ""
+}
+
+while getopts hvdxwcnl OPT; do
+	case "$OPT" in
+		h) #  Help 
+			usage
+			exit 0
+			;;
+		v) #  Show Version
+			echo "`basename $0` version 0.2"
+			exit 0
+			;;
+		d) #  Empty the queue of all messages
+			COMMAND=1;;
+		x) #  Dump the messages in a queue to a text file 
+			COMMAND=2;;
+		w) #  write messages to a queue to a text file 
+			COMMAND=3;;
+		c) #  create the queue
+			COMMAND=4;;
+		n) #  show number of elements in a queue
+			COMMAND=5;;
+		l) #  list available queues
+			COMMAND=6;;
+		\?)
+			usage
+			exit 1
+			;;
+	esac
+done
+
+#
+#Check to ensure parameters are correct
+#
+SRCDIR="/var/www/nginx-default/data/compressed/"
+IPADDR=""
+shift `expr $OPTIND - 1`
+if [ $# -eq 3 ]; then
+	if [ $COMMAND -eq 3 ]; then
+		QUEUENAME=$1
+		SRCDIR=$2
+		IPADDR=$3
+	else
+		usage
+		exit 1
+	fi
+elif [ $# -eq 2 ]; then
+	if [ $COMMAND -eq 3 ]; then
+		QUEUENAME=$1 
+		SRCDIR=$2 
+	else
+		usage
+		exit 1
+	fi
+elif [ $# -eq 1 ]; then
+	if [ $COMMAND -eq 6 ]; then
+		usage
+		exit 1
+	else
+		QUEUENAME=$1 
+		echo "queue name - " $QUEUENAME
+	fi
+else
+	if [ $COMMAND -ne 6 ]; then
+		usage
+		exit 1
+	fi
+fi
+
+case "$COMMAND" in
+	1)	echo "Delete queue " $QUEUENAME "....."
+		python ~/nimbus-client/sqs-delete.py $QUEUENAME;;
+	2)	echo "Dump contents of queue " $QUEUENAME;;
+	3)	if [ -z "$IPADDR" ] ; then
+	        echo "Write message to queue " $QUEUENAME " using directory "$SRCDIR "....."
+		    ls $SRCDIR | python ~/nimbus-client/sqs-writer.py $QUEUENAME 
+		else
+		    echo "Write message to queue " $QUEUENAME " using directory "$SRCDIR " and IP Address "$IPADDR
+            ls $SRCDIR | python ~/nimbus-client/sqs-writer.py $QUEUENAME -i $IPADDR 
+        fi;;
+	4)	echo "Create queue " $QUEUENAME "....."
+		python ~/nimbus-client/sqs-create.py $QUEUENAME;;
+	5)	echo "show count of messages in queue " $QUEUENAME
+		python ~/nimbus-client/sqs-count.py $QUEUENAME;;
+	6)	echo "list all available queues"
+		python ~/nimbus-client/sqs-list.py ;;
+	*)	echo "Error"
+		usage
+esac

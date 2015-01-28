@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# Author: 	Paul Doyle
+# Date:		Septemebr 2013
+#
+# NAME
+#	do_work 
+#
+#
+# SYNOPSIS
+#	so_work FILEURL
+#
+# DESCRIPTION:	
+# 
+# 	The purpose of this script is to download a file from the internet and have it processed
+#
+#
+#
+USAGE="Usage: `basename $0` FILEURL"
+
+HOST=$(uname -n)
+FILEPROC=0
+CLEANED=0
+STANDBYE=0
+FILEREAD=0
+
+START=$(date +%s)
+NOW=$(date +"%Y%m%d%H%M%S")
+
+#Verify that one parameter has been provided. If not exit with an error code
+if [ $# -ne 1 ]; then 
+	exit 1
+fi
+
+# Get the filename from the URL
+IFS='/' read -a array <<< "$1"
+filename=${array[${#array[@]}-1]}
+
+# Download the file
+wget $1 > /dev/null 2>&1
+if [ $? -ne 0 ] ; then
+	echo $HOST failed to get file $1
+	exit 2
+fi
+#echo $filename downloaded successfully
+
+# Uncompress the file
+../nimbus-pkg/Bin/funpack $filename > /dev/null 2>&1
+if [ $? -ne 0 ] ; then
+        echo $HOST failed to unpack file $filename
+        exit 3
+fi
+rm -rf $filename > /dev/null 2>&1
+filenameuncompressed=${filename:0:(${#filename} - 3)}
+#echo $filenameuncompressed unpacked successfully
+
+mv $filenameuncompressed ../Exp
+
+../nimbus-pkg/Bin/acn-aphot ../Exp/ -c ../nimbus-pkg/MasterFiles/Final-MasterFlat.fits ../nimbus-pkg/MasterFiles/Final-MasterBias-subrect.fits < ../nimbus-pkg/MasterFiles/config  > /dev/null
+
+mv ./*result ../Result 2> /dev/null
+if [ $? -ne 0 ] ; then
+	echo "Could not write result file $filenameuncompressed : $HOST Bailing"
+	exit 4;
+fi	
+#echo $filenameuncompressed.result file written
+
+rm ../Exp/$filenameuncompressed
+# Cleanup after completing cleaning
+if [ $? -ne 0 ] ; then
+        echo failed to remove processed file
+        exit 5
+fi
+
+#echo $filenameuncompressed file deleted 
+echo $filenameuncompressed processed
+
+exit 0

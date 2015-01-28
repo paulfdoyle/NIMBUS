@@ -1,0 +1,88 @@
+#!/bin/bash
+
+#
+#  Configuration options for running experiments
+#
+#
+#
+#  -a   Use Amazon Web servers
+#  -d   Use DIT Web servers
+#  -n	Use HEANT Web servers 
+#  -x	Use ALL Web servers
+#
+#
+#   Num Instances to Run
+#
+#   Time in Seconds to run the experiment
+#
+#   Name of the Experiment
+#
+#   Number of Web Servers to run (1 or 2)
+#
+#   Size of the instances to use in the experiment 
+#
+#   All experiments are formally names to correspond to a specific configuration
+#
+# Format of the run command below is as follows. 
+#
+#  webservertype  instancenum seconds expname webservernum  instancetype
+#
+
+#######################
+#
+#AWS Experiments group 1, Workers= 1 per instance, BatchSize = 10
+#
+#######################
+#
+#
+# The following parameters must be set in the Worker Package
+# 	Workers per instance in this case is 1
+# 	Batch Size per worker is set to 10
+#
+# 	The canary1.nightsky.ie should also be running rounding up the 
+#	number of instances by 1 in all cases
+#
+#./run-experiment.sh -x  99   1200 SetMASSIVE 4 m3.2xlarge
+
+echo " Ensure that the workers per instances is set to 1"
+echo " Ensure that the batchsize per worker is set to 10"
+
+#./run-experiment.sh -f  0   1200 FTPCAL-micro.1 1 t1.micro   
+#./run-experiment.sh -f  4   1200 FTPCAL-micro.2 1 t1.micro   
+#./run-experiment.sh -f  49   1200 FTPCAL-micro.3 1 t1.micro   
+#./run-experiment.sh -f  99   1200 FTPCAL-micro.4 1 t1.micro   
+
+#./run-experiment.sh -f  0   1200 FTPCAL-large.1 1 m1.large
+#./run-experiment.sh -f  4   1200 FTPCAL-large.2 1 m1.large
+#./run-experiment.sh -f  49   1200 FTPCAL-large.3 1 m1.large
+#./run-experiment.sh -f  99   1200 FTPCAL-large.4 1 m1.large 
+
+echo " Ensure that the workers per instances is set to 5"
+echo " Ensure that the batchsize per worker is set to 10"
+#./run-experiment.sh -f  0   1200 FTPCAL-micro.5 1 t1.micro   
+#./run-experiment.sh -f  0   1200 FTPCAL-large.5 1 t1.large
+./run-experiment.sh -f  4   1200 FTPCAL-micro.6 1 t1.micro   
+./run-experiment.sh -f  49   1200 FTPCAL-micro.7 1 t1.micro   
+./run-experiment.sh -f  99   1200 FTPCAL-micro.8 1 t1.micro   
+./run-experiment.sh -f  4   1200 FTPCAL-large.6 1 m1.large
+./run-experiment.sh -f  49   1200 FTPCAL-large.7 1 m1.large
+./run-experiment.sh -f  99   1200 FTPCAL-large.8 1 m1.large
+
+
+
+
+echo " Ensure that the workers per instances is set to 10"
+echo " Ensure that the batchsize per worker is set to 10"
+
+#./run-experiment.sh -f  0   1200 FTPCAL-micro.9 1 t1.micro   
+#./run-experiment.sh -f  4   1200 FTPCAL-micro.10 1 t1.micro   
+#./run-experiment.sh -f  49   1200 FTPCAL-micro.11 1 t1.micro   
+#./run-experiment.sh -f  99   1200 FTPCAL-micro.12 1 t1.micro   
+#./run-experiment.sh -f  0   1200 FTPCAL-large.9 1 m1.large
+#./run-experiment.sh -f  4   1200 FTPCAL-large.10 1 m1.large
+#./run-experiment.sh -f  49   1200 FTPCAL-large.11 1 m1.large
+#./run-experiment.sh -f  99   1200 FTPCAL-large.12 1 m1.large
+
+
+
+

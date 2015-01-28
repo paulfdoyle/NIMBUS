@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh -i ../keys/nimbuskey.pem ubuntu@controller.nightsky.ie

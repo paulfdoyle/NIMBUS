@@ -1,0 +1,46 @@
+#!/bin/sh
+# /etc/init.d/nimbus-worker
+#
+# On reboot upgrade the worker with the latest software
+#
+# 
+#! /bin/sh
+# /etc/init.d/nimbus-worker
+#
+# On reboot upgrade the worker with the latest software
+#
+# 
+case "$1" in
+  start)
+    	echo "Starting worker"
+        mkdir /home/ubuntu
+
+        #
+        # Cleanup the older version
+        #
+        rm -rf /home/ubuntu/*
+
+        #
+        # Download the newer version
+        #
+        wget http://webnode1.dit.ie/worker/nimbusworker.pkg.tar.z -v -O /home/ubuntu/nimbusworker.pkg.tar.z
+        cd /home/ubuntu/
+	tar -xvf nimbusworker.pkg.tar.z
+
+        cp /home/ubuntu/nimbus-worker/version* /home/ubuntu/
+        chmod 755 /home/ubuntu/nimbus-worker/scripts/start-worker
+        echo "starting worker"
+	/home/ubuntu/nimbus-worker/scripts/start-worker 
+        #python /home/ubuntu/nimbus-worker/sqs-reader.py workerq cmdq 10 > /home/ubuntu/workerlog.log &
+    ;;
+  stop)
+    echo "Stopping example"
+    # kill application you want to stop
+    killall python
+    ;;
+  *)
+    echo "Usage: /etc/init.d/nimbus-worker{start|stop}"
+    exit 1
+    ;;
+esac
+exit 0

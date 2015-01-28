@@ -1,0 +1,104 @@
+#!/bin/bash
+
+#
+#  Configuration options for running experiments
+#
+#
+#
+#  -a   Use Amazon Web servers
+#  -d   Use DIT Web servers
+#  -n	Use HEANT Web servers 
+#  -x	Use ALL Web servers
+#
+#
+#   Num Instances to Run
+#
+#   Time in Seconds to run the experiment
+#
+#   Name of the Experiment
+#
+#   Number of Web Servers to run (1 or 2)
+#
+#   Size of the instances to use in the experiment 
+#
+#   All experiments are formally names to correspond to a specific configuration
+#
+# Format of the run command below is as follows. 
+#
+#  webservertype  instancenum seconds expname webservernum  instancetype
+#
+
+#######################
+#
+#AWS Experiments group 1, Workers= 1 per instance, BatchSize = 10
+#
+#######################
+#
+#
+# The following parameters must be set in the Worker Package
+# 	Workers per instance in this case is 1
+# 	Batch Size per worker is set to 10
+#
+# 	The canary1.nightsky.ie should also be running rounding up the 
+#	number of instances by 1 in all cases
+#
+#./run-experiment.sh -x  99   1200 SetMASSIVE 4 m3.2xlarge
+
+
+#./run-experiment.sh -a  0   1200 SetA.1 1 t1.micro   
+#./run-experiment.sh -a  0   1200 SetA.3 2 t1.micro   
+#./run-experiment.sh -a  4   1200 SetB.1 1 t1.micro   
+#./run-experiment.sh -a  9   1200 SetB.2 1 t1.micro   
+#./run-experiment.sh -a  24  1200 SetB.3 1 t1.micro   
+#./run-experiment.sh -a  49  1200 SetB.4 1 t1.micro   
+#./run-experiment.sh -a  99  1200 SetB.5 1 t1.micro   
+#./run-experiment.sh -a  4   1200 SetC.1 2 t1.micro   
+#./run-experiment.sh -a  9   1200 SetC.2 2 t1.micro   
+#./run-experiment.sh -a  24  1200 SetC.3 2 t1.micro   
+#./run-experiment.sh -a  49  1200 SetC.4 2 t1.micro   
+#./run-experiment.sh -a  99  1200 SetC.5 2 t1.micro   
+
+#./run-experiment.sh -a  0   1200 SetA.2 1 m1.large
+#./run-experiment.sh -a  0   1200 SetA.4 2 m1.large
+#./run-experiment.sh -a  4   1200 SetB.6 1 m1.large
+#./run-experiment.sh -a  9  1200 SetB.7 1 m1.large
+#./run-experiment.sh -a  24  1200 SetB.8 1 m1.large
+#./run-experiment.sh -a  49  1200 SetB.9 1 m1.large
+#./run-experiment.sh -a  99 1200 SetB.10 1 m1.large
+#./run-experiment.sh -a  4   1200 SetC.6 2 m1.large
+#./run-experiment.sh -a  9  1200 SetC.7 2 m1.large
+#./run-experiment.sh -a  24  1200 SetC.8 2 m1.large
+#./run-experiment.sh -a  49  1200 SetC.9 2 m1.large
+#./run-experiment.sh -a  99 1200 SetC.10 2 m1.large
+
+read -p "Set Workers to 5 workers per instance then Press any key to continue... " 
+
+
+#./run-experiment.sh -a  0   1200 SetA5w.1 1 t1.micro   
+#./run-experiment.sh -a  0   1200 SetA5w.3 2 t1.micro   
+#./run-experiment.sh -a  0   1200 SetA5w.2 1 m1.large
+#./run-experiment.sh -a  0   1200 SetA5w.4 2 m1.large
+#./run-experiment.sh -a  4   1200 SetB5w.1 1 t1.micro   
+
+
+./run-experiment.sh -a  9   1200 SetB5w.2 1 t1.micro   
+./run-experiment.sh -a  24  1200 SetB5w.3 1 t1.micro   
+./run-experiment.sh -a  49  1200 SetB5w.4 1 t1.micro   
+./run-experiment.sh -a  99  1200 SetB5w.5 1 t1.micro   
+./run-experiment.sh -a  4   1200 SetB5w.6 1 m1.large
+./run-experiment.sh -a  9  1200 SetB5w.7 1 m1.large
+./run-experiment.sh -a  24  1200 SetB5w.8 1 m1.large
+./run-experiment.sh -a  49  1200 SetB5w.9 1 m1.large
+./run-experiment.sh -a  99 1200 SetB5w.10 1 m1.large
+
+
+./run-experiment.sh -a  4   1200 SetC5w.1 2 t1.micro   
+./run-experiment.sh -a  9   1200 SetC5w.2 2 t1.micro   
+./run-experiment.sh -a  24  1200 SetC5w.3 2 t1.micro   
+./run-experiment.sh -a  49  1200 SetC5w.4 2 t1.micro   
+./run-experiment.sh -a  99  1200 SetC5w.5 2 t1.micro   
+./run-experiment.sh -a  4   1200 SetC5w.6 2 m1.large
+./run-experiment.sh -a  9  1200 SetC5w.7 2 m1.large
+./run-experiment.sh -a  24  1200 SetC5w.8 2 m1.large
+./run-experiment.sh -a  49  1200 SetC5w.9 2 m1.large
+./run-experiment.sh -a  99 1200 SetC5w.10 2 m1.large

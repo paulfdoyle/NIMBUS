@@ -1,0 +1,17 @@
+# Author:       Paul Doyle
+# Date:         Septemebr 2013
+#
+# NAME
+#       startworker
+#
+#
+# SYNOPSIS
+#      startworker runs the primary pyton command to start cleaning images
+#
+# DESCRIPTION:  
+# 
+#
+cd /home/ubuntu6/nimbus-worker/
+#chmod 755 downloadtest.sh
+#/home/ubuntu/nimbus-worker/downloadtest.sh
+python /home/ubuntu6/nimbus-worker/sqs-reader.py workerq cmdq 10 &

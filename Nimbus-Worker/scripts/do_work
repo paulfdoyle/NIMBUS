@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# Author: 	Paul Doyle
+# Date:		Septemebr 2013
+#
+# NAME
+#	do_work 
+#
+#
+# SYNOPSIS
+#	so_work FILEURL
+#
+# DESCRIPTION:	
+# 
+# 	The purpose of this script is to download a file from the internet and have it processed
+#
+#
+#
+USAGE="Usage: `basename $0`"
+HOST=$(uname -n)
+
+cd Results
+# Uncompress the file
+../bin/funpack ../Datafiles/* #> /dev/null 2>&1
+if [ $? -ne 0 ] ; then
+        echo $HOST failed to unpack files 
+        exit 2
+fi
+
+# Remove the compressed files
+rm -rf ../Datafiles/*.fz > /dev/null 2>&1
+
+# Clean all of the files in the Datafile dir and write the results to current directory
+../bin/acn-aphot ../Datafiles/ -c ../Masterfiles/Final-MasterFlat.fits  ../Masterfiles/Final-MasterBias-subrect.fits < ../Masterfiles/config > /dev/null
+
+exit 0

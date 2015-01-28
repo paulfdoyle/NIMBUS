@@ -1,0 +1,117 @@
+#!/bin/bash
+
+#
+#  Configuration options for running experiments
+#
+#
+#
+#  -a   Use Amazon Web servers
+#  -d   Use DIT Web servers
+#  -n	Use HEANT Web servers 
+#  -x	Use ALL Web servers
+#
+#
+#   Num Instances to Run
+#
+#   Time in Seconds to run the experiment
+#
+#   Name of the Experiment
+#
+#   Number of Web Servers to run (1 or 2)
+#
+#   Size of the instances to use in the experiment 
+#
+#   All experiments are formally names to correspond to a specific configuration
+#
+
+# Use Amazon Web servers, 1 instances for 1 webserver for 20 mins
+#./run-experiment.sh -a  1 1200 SetA1 1 t1.micro
+#./run-experiment.sh -a  1 1200 SetA2 1 m1.large
+
+#./run-experiment.sh -a  1 1200 SetA1-10workers 1 t1.micro
+#./run-experiment.sh -a  1 1200 SetA2-10workers 1 m1.large
+#./run-experiment.sh -a  1 1200 SetA3-10workers 2 t1.micro
+#./run-experiment.sh -a  1 1200 SetA4-10workers 2 m1.large
+
+#./run-experiment.sh -x  1 1200 SetX4-10workers 2 m1.large
+
+
+# Use Amazon Web servers, 1 instances for 2 webserver for 20 mins
+#./run-experiment.sh -a  1 1200 SetA3 2 t1.micro
+#./run-experiment.sh -a  1 1200 SetA4 2 m1.large
+#./run-experiment.sh -d  1 1200 SetA5 1 t1.micro
+#./run-experiment.sh -d  1 1200 SetA6 1 m1.large
+#./run-experiment.sh -d  1 1200 SetA7 2 t1.micro
+#./run-experiment.sh -d  1 1200 SetA8 2 m1.large
+
+# Use Amazon Web servers, 1 to 100 instances for 1 webserver for 20 mins
+#./run-experiment.sh -a  5 1200 SetB1 1 t1.micro
+#./run-experiment.sh -a  10 1200 SetB2 1 t1.micro
+#./run-experiment.sh -a  25 1200 SetB3 1 t1.micro
+#./run-experiment.sh -a  50 1200 SetB4 1 t1.micro
+#./run-experiment.sh -a  100 1200 SetB5 1 t1.micro
+#./run-experiment.sh -a  5 1200 SetB6 1 m1.large
+#./run-experiment.sh -a  10 1200 SetB7 1 m1.large
+#./run-experiment.sh -a  25 1200 SetB8 1 m1.large
+#./run-experiment.sh -a  50 1200 SetB9 1 m1.large
+#./run-experiment.sh -a  100 1200 SetB10 1 m1.large
+
+
+# Run when there are 4 workers per instances
+#./run-experiment.sh -a  5 1200 SetB6-4workers 1 m1.large
+#./run-experiment.sh -a  10 1200 SetB7-4workers 1 m1.large
+#./run-experiment.sh -a  25 1200 SetB8-4workers 1 m1.large
+#./run-experiment.sh -a  50 1200 SetB9-4workers 1 m1.large
+#./run-experiment.sh -a  100 1200 SetB10-4workers 1 m1.large
+
+# Use DIT Web servers, 1 to 100 instances for 1 webserver for 20 mins
+#./run-experiment.sh -d  5 1200 SetB11 1 t1.micro
+#./run-experiment.sh -d  10 1200 SetB12 1 t1.micro
+#./run-experiment.sh -d  25 1200 SetB13 1 t1.micro
+#./run-experiment.sh -d  50 1200 SetB14 1 t1.micro
+#./run-experiment.sh -d  5 1200 SetB15 2 t1.micro
+
+#./run-experiment.sh -d  100 1200 SetB15 1 t1.micro
+#./run-experiment.sh -d  5 1200 SetB16 1 m1.large
+#./run-experiment.sh -d  10 1200 SetB17 1 m1.large
+#./run-experiment.sh -d  25 1200 SetB18 1 m1.large
+#./run-experiment.sh -d  50 1200 SetB19 1 m1.large
+#./run-experiment.sh -d  100 1200 SetB20 1 m1.large
+
+#./run-experiment.sh -a  5 1200 SetC1 2 t1.micro
+#./run-experiment.sh -a  10 1200 SetC2 2 t1.micro
+#./run-experiment.sh -a  25 1200 SetC3 2 t1.micro
+#./run-experiment.sh -a  50 1200 SetC4 2 t1.micro
+#./run-experiment.sh -a  100 1200 SetC5 2 t1.micro
+#./run-experiment.sh -a  5 1200 SetC6 2 m1.large
+#./run-experiment.sh -a  10 1200 SetC7 2 m1.large
+#./run-experiment.sh -a  25 1200 SetC8 2 m1.large
+#./run-experiment.sh -a  50 1200 SetC9 2 m1.large
+#./run-experiment.sh -a  100 1200 SetC10 2 m1.large
+
+#./run-experiment.sh -a  5 1200 SetC1-4workers 2 t1.micro
+#./run-experiment.sh -a  10 1200 SetC2-4workers 2 t1.micro
+#./run-experiment.sh -a  25 1200 SetC3-4workers 2 t1.micro
+#./run-experiment.sh -a  50 1200 SetC4-4workers 2 t1.micro
+#./run-experiment.sh -a  100 1200 SetC5-4workers 2 t1.micro
+#./run-experiment.sh -a  5 1200 SetC6-4workers 2 m1.large
+#./run-experiment.sh -a  10 1200 SetC7-4workers 2 m1.large
+#./run-experiment.sh -a  25 1200 SetC8-4workers 2 m1.large
+#./run-experiment.sh -a  50 1200 SetC9-4workers 2 m1.large
+#./run-experiment.sh -a  100 1200 SetC10-4workers 2 m1.large
+
+#./run-experiment.sh -a  100 1200 SetC5-10workers 2 t1.micro
+#./run-experiment.sh -a  100 1200 SetC10-10workers 2 m1.large
+
+./run-experiment.sh -x  99 2200 SetX100-10workers 2 m1.large
+
+#./run-experiment.sh -d  10 1200 SetC12 2 t1.micro
+#./run-experiment.sh -d  25 1200 SetC13 2 t1.micro
+#./run-experiment.sh -d  50 1200 SetC14 2 t1.micro
+#./run-experiment.sh -d  100 1200 SetC15 2 t1.micro
+#./run-experiment.sh -d  5 1200 SetC16 2 m1.large
+#./run-experiment.sh -d  10 1200 SetC17 2 m1.large
+#./run-experiment.sh -d  25 1200 SetC18 2 m1.large
+#./run-experiment.sh -d  50 1200 SetC19 2 m1.large
+#./run-experiment.sh -d  100 1200 SetC20 2 m1.large
+

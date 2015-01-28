@@ -1,0 +1,14 @@
+#/bin/sh
+#
+# Author Paul Doyle (c) May 2012
+#
+# The purpose of this script is to create an SSH tunnel to the node.js server
+#
+#
+# Port 5001 is the workernode connection port for the node.js server
+ps aux | grep L5001 | grep -v grep > /dev/null 2>&1
+if [ $? -eq 0 ] ; then
+   echo "Port 5001 already in use"
+else
+   ssh -L5001:localhost:5001 -Nf -p 4000 pauld@phenomenalvision.com
+fi

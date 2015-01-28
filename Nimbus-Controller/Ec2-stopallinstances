@@ -1,0 +1,30 @@
+import sys
+from sys import stdout
+import time
+import datetime
+import boto.ec2
+import argparse
+
+# AWS IDs to use to connect to the SQS Queue
+ACCESSKEYID = 'AKIAINWVSI3MIXIB5N3Q'
+SECRETKEYID = 'p5YZH9h2x6Ua+5D2qC+p4HFUHQZRVo94J9zrOE+c'
+REGIONID = "eu-west-1"
+
+#parser = argparse.ArgumentParser()
+#parser.add_argument("batch",type=int)
+#args = parser.parse_args()
+#BATCHSIZE = args.batch
+#print "starting the instances now: " , BATCHSIZE
+# Set up the connection to the SQS queue	
+conn = boto.ec2.connect_to_region(REGIONID,aws_access_key_id=ACCESSKEYID,aws_secret_access_key=SECRETKEYID)
+try:
+	reservations = conn.get_all_reservations()
+except:
+	print "Count not get all reservations"
+#check for multiple reservations
+
+for rescounter in range (len(reservations)):
+	try:
+		reservations[rescounter-1].stop_all()
+	except:
+		print "Error trying to stop instances"
